@@ -83,6 +83,27 @@
 		.media { display: table; overflow: hidden; }
 		.media-object {background-color: #fff;}
 		.media-body { display: table-cell; vertical-align: middle; }
+		
+		.glyphicon {
+			margin-right: 4px !important; /*override*/
+		}
+		.pagination .glyphicon {
+			margin-right: 0px !important; /*override*/
+		}
+		.pagination a {
+			color: #555;
+		}
+		.panel ul {
+			padding: 0px;
+			margin: 0px;
+			list-style: none;
+		}
+		.news-item {
+			padding: 4px 4px;
+			margin: 0px;
+			border-bottom: 1px dotted #555;
+		}
+		
 		/* responsive iframe */
 		.flex-video {
 			position: relative;
@@ -111,8 +132,10 @@
 				padding-top: 0;
 			}
 		}
-		.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {    padding-right: 0px;
-    padding-left: 0px;}
+		.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+			padding-right: 0px;
+    			padding-left: 0px;
+		}
 	</style>
   </head>
 
@@ -121,7 +144,8 @@
 		<div class="left col-md-8">
 			<div class="first">	
 				<!--<iframe src="https://player.vimeo.com/video/145220347?autoplay=1&loop=1&title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
-				<iframe src="https://player.vimeo.com/video/125145844?autoplay=1&loop=1&title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<!--<iframe src="https://player.vimeo.com/video/125145844?autoplay=1&loop=1&title=0&byline=0&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
+				<img src="https://i1.wp.com/ncdsbcdn.files.wordpress.com/2015/11/1.gif" />
 			</div>
 			<div class="second">
 				<div id="carousel-example-generic" class="carousel fade" data-ride="carousel">
@@ -193,7 +217,9 @@
 						</div>
 					</div>
 				</div>
+			</div>
 		</div>
+		<div class="stripe col-md-12" style="background:#000;"></div>
 	</div>
 	<div class="row navbar-inverse">
         <div class="navbar-header">
@@ -236,6 +262,7 @@
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
     <script src="astro-wp-element.js"></script>
+    <script src="jquery.bootstrap.newsbox.min.js"></script>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
@@ -243,17 +270,27 @@
 	<script type="text/javascript">
 	
 		$( document ).ready(function() {
-			$('.first, .first iframe').height(function(){ return $(window).height() * 0.8125; });
-			$('.second').height(function(){ return $(window).height() * 0.1875; });
+			$('.first').height(function(){ return $(window).height() * 0.74; });
+			$('.second').height(function(){ return $(window).height() * 0.17; });
+			$('.stripe').height(function(){ return $(window).height() * 0.09; });
+			$('.secondary').height(function(){ return $(window).height() * 0.57; }).width(function(){ return $('.right').width() * 1; });
+			$('.board').height(function(){ return $(window).height() * 0.34; }).width(function(){ return $('.right').width() * 1; });
+			
+			// match size of parents
+			$('.first img, .first iframe').height(function(){ return $('.first').height() * 1; }).width(function(){ return $('.first').width() * 1; });
 			$('.second img').height(function(){ return $('.second').height() * 1; });
-			$('.secondary, .secondary img').height(function(){ return $(window).height() * 0.625; }).width(function(){ return $('.right').width() * 1; });
-			$('.board, .board img').height(function(){ return $(window).height() * 0.375; }).width(function(){ return $('.right').width() * 1; });
+			$('.secondary img').height(function(){ return $('.secondary').height() * 1; }).width(function(){ return $('.secondary').width() * 1; });
+			$('.board img').height(function(){ return $('.board').height() * 1; }).width(function(){ return $('.board').width() * 1; });
+			
+			// Carousel
 			$('.second .carousel').carousel({ interval: 32000 });
 			$('.secondary .carousel').carousel({ interval: 16000 });
 			$('.board .carousel').carousel({ interval: 8000 });
+			
 			// Add responsive class iframes
 			$("iframe, embed, object").wrap("<div class='flex-video widescreen'/>");
 			$('.first .flex-video, .first .widescreen').height(function(){ return $(window).height() * 0.85; });
+			
 			// Defining a function to set size for .screen
 			function fullscreen() {
 				jQuery('.cover').css({
@@ -268,6 +305,5 @@
 			});				
 		});
 	</script>
-
 	</body>
 </html>
